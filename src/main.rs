@@ -1,10 +1,7 @@
 #[macro_use] extern crate rocket;
 
-use std::collections::HashMap;
-use std::ptr::hash;
-use rocket::response::content;
-use rocket::response::content::RawHtml;
-use rocket_dyn_templates::{context, handlebars, Template};
+use rocket::response::Redirect;
+use rocket_dyn_templates::{context, Template};
 
 #[get("/")]
 fn index() -> Template {
@@ -13,10 +10,17 @@ fn index() -> Template {
     Template::render("homepage", context! { people: map})
 }
 
+#[post("/button")]
+fn button() -> Redirect{
+    println!("button pressed");
+    Redirect::to("/")
+}
+
 #[launch]
 fn rocket() -> _ {
     rocket::build()
         .attach(Template::fairing())
         .mount("/", routes![index])
+        .mount("/button", routes![button])
 }
 

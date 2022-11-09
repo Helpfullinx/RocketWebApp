@@ -1,5 +1,11 @@
 <ul class="people_list">
-    {{#each people}}
-        <li>{{this}}</li>
-    {{/each}}
+
+    <div>
+        <form method="post" action="/button">
+        {{#each people}}
+            <button type="submit">{{this}}</button>
+        {{/each}}
+        </form>
+    </div>
+
 </ul>
